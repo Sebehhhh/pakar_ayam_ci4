@@ -10,29 +10,25 @@
             <div class="card">
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-12">
+                        <!-- user/index.php -->
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Nama</th>
-                                    <th>Email</th>
+                                    <th>username</th>
                                     <th>Role</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>John Doe</td>
-                                    <td>john.doe@example.com</td>
-                                    <td>User</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jane Doe</td>
-                                    <td>jane.doe@example.com</td>
-                                    <td>Admin</td>
-                                </tr>
-                                <!-- Tambahkan baris lainnya sesuai kebutuhan -->
+                                <?php foreach ($users as $user) : ?>
+                                    <tr>
+                                        <td><?= $user['id']; ?></td>
+                                        <td><?= $user['nama']; ?></td>
+                                        <td><?= $user['username']; ?></td>
+                                        <td><?= $user['role_id']; ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
