@@ -60,10 +60,6 @@ class AuthController extends Controller
 
             $this->setFlashAlert('success', 'Login Berhasil', 'Selamat datang!');
             return redirect()->to('/dashboard');
-        } elseif ($statusCode === 401) {
-            // Penanganan jika autentikasi gagal
-            $this->setFlashAlert('error', 'Login gagal', 'Nama pengguna atau kata sandi salah.');
-            return redirect()->to('/');
         } else {
             // Penanganan untuk kode status lainnya
             $this->setFlashAlert('error', 'Login gagal', 'Ada masalah ketika memproses login');

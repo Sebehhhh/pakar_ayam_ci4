@@ -28,6 +28,7 @@
                             <div class="mb-3">
                                 <label for="role_id" class="form-label">Role<span class="text-danger">*</span></label>
                                 <select class="form-select" id="role_id" name="role_id" required>
+                                    <option value="">- Select Role -</option>
                                     <?php foreach ($roles as $role) : ?>
                                         <option value="<?= $role['id'] ?>"><?= $role['role'] ?></option>
                                     <?php endforeach; ?>

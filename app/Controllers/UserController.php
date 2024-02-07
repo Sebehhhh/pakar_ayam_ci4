@@ -37,7 +37,7 @@ class UserController extends BaseController
         if (session()->has('access_token')) {
             $client = new Client();
             // Mengambil data peran (role) dari API
-            $responseRoles = $client->request('GET', 'http://127.0.0.1:8000/api/role');
+            $responseRoles = $client->request('GET', 'http://127.0.0.1:8000/api/roles');
             $roles = json_decode($responseRoles->getBody(), true);
 
             return view('user/create', ['roles' => $roles]);
@@ -58,13 +58,6 @@ class UserController extends BaseController
                 'password' => $this->request->getPost('password'),
                 'role_id' => $this->request->getPost('role_id'),
             ];
-
-            // Periksa apakah semua bidang sudah diisi
-            if (empty($nama) || empty($username) || empty($password) || empty($role_id)) {
-                // Jika ada bidang yang kosong, tampilkan pesan kesalahan
-                $this->setFlashAlert('error', 'Gagal', 'Semua bidang harus diisi');
-                return redirect()->back()->withInput();
-            }
 
             // Kirim data menggunakan HTTP POST
             $response = $client->request('POST', 'http://127.0.0.1:8000/api/users', [
@@ -87,7 +80,7 @@ class UserController extends BaseController
             $user = json_decode($responseUser->getBody(), true);
 
             // Mendapatkan data peran (role) dari API
-            $responseRoles = $client->request('GET', 'http://127.0.0.1:8000/api/role');
+            $responseRoles = $client->request('GET', 'http://127.0.0.1:8000/api/roles');
             $roles = json_decode($responseRoles->getBody(), true);
 
             return view('user/edit', ['user' => $user, 'roles' => $roles]);
