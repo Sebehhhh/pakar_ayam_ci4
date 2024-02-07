@@ -101,7 +101,20 @@
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+
     <!-- / Layout wrapper -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <?php if (session()->has('alert')) : ?>
+    <script>
+        Swal.fire({
+            icon: '<?= session('alert.type') ?>',
+            title: '<?= session('alert.title') ?>',
+            text: '<?= session('alert.message') ?>',
+        });
+    </script>
+<?php endif; ?>
 
 <!-- Core JS -->
 <script src="<?= base_url('assets/vendor/libs/jquery/jquery.js') ?>"></script>

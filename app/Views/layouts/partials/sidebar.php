@@ -56,17 +56,22 @@
             </a>
         </li>
 
-        <!-- Layouts -->
+        <!-- Auth -->
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Layouts</div>
+                <div data-i18n="Layouts">Auth</div>
             </a>
 
             <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="<?= base_url('/user') ?>" class="menu-link">
-                        <div data-i18n="Without menu">Without menu</div>
+                        <div data-i18n="Without menu">User</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="<?= base_url('/user') ?>" class="menu-link">
+                        <div data-i18n="Without menu">Role</div>
                     </a>
                 </li>
             </ul>

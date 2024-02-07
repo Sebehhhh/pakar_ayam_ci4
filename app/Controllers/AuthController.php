@@ -25,29 +25,63 @@ class AuthController extends Controller
         ];
 
         if (!$this->validate($validationRules)) {
-            // Jika validasi gagal, kembalikan ke halaman login
+            // Jika validasi gagal, tampilkan Sweet Alert
+            $this->setFlashAlert('error', 'Validasi gagal', 'Silakan isi semua kolom dengan benar.');
             return redirect()->to('/')->withInput()->with('validation', $this->validator);
         }
 
-        // Cek keberadaan user dalam database
-        $userModel = new UserModel();
-        $user = $userModel->where('username', $username)->first();
+        // Kirim permintaan login ke API
+        $client = \Config\Services::curlrequest();
+        $response = $client->request('POST', 'http://127.0.0.1:8000/api/token', [
+            'form_params' => [
+                'username' => $username,
+                'password' => $password
+            ]
+        ]);
 
-        if (!$user || $password !== $user['password']) {
-            return redirect()->to('/')->with('error', 'data tidak ditemukan');
+        // Tangani respons dari API
+        if ($response->getStatusCode() === 200) {
+            $data = json_decode($response->getBody(), true);
+
+            // Simpan token akses dalam sesi
+            $session = session();
+
+            // Tetapkan waktu kedaluwarsa sesi menjadi 30 menit dari sekarang
+            $expireTime = time() + (30 * 60); // 30 menit * 60 detik
+            $session->set('expire_time', $expireTime);
+            $session->set('access_token', $data['access_token']);
+            $session->set('id', $data['user_id']);
+
+            $this->setFlashAlert('success', 'Login Berhasil', 'Selamat datang!');
+            return redirect()->to('/dashboard');
+        } else {
+            // Tangani kasus jika login gagal
+            $this->setFlashAlert('error', 'Login gagal', 'Username atau password salah.');
+            return redirect()->to('/');
         }
+    }
 
-        // Jika user ditemukan, set session dan redirect ke halaman beranda
-        session()->set('user_id', $user['id']);
-        return redirect()->to('/dashboard')->with('success', 'login berhasil');
+
+    private function setFlashAlert($type, $title, $message)
+    {
+        // Set Sweet Alert menggunakan session flashdata
+        session()->setFlashdata('alert', [
+            'type' => $type,
+            'title' => $title,
+            'message' => $message
+        ]);
     }
 
     public function logout()
     {
-        // Hapus session user_id
-        session()->remove('user_id');
+        // Menghapus sesi access_token
+        $session = session();
+        $session->remove('access_token');
 
-        // Redirect ke halaman login dengan pesan logout berhasil
-        return redirect()->to('/login')->with('success', 'Logout berhasil');
+        // Menghapus sesi expire_time jika ada
+        $session->remove('expire_time');
+
+        $this->setFlashAlert('success', 'Logout Berhasil', 'Sesi anda telah berakhir');
+        return redirect()->to('/')->with('success', 'Logout berhasil');
     }
 }

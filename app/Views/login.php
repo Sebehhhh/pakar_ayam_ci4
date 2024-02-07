@@ -140,7 +140,7 @@
        
               <form id="formAuthentication" class="mb-3" action="<?= base_url('/login') ?>" method="POST">
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email or Username</label>
+                        <label for="email" class="form-label">Username</label>
                         <input
                         type="text"
                         class="form-control"
@@ -148,6 +148,7 @@
                         name="username"
                         placeholder="Enter your email or username"
                         autofocus
+                        required
                         />
                     </div>
                     <div class="mb-3 form-password-toggle">
@@ -164,7 +165,7 @@
                             class="form-control"
                             name="password" 
                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                            aria-describedby="password"
+                            aria-describedby="password" required
                         />
                         <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                         </div>
@@ -189,9 +190,22 @@
 
     <!-- / Content -->
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <?php if (session()->has('alert')) : ?>
+    <script>
+        Swal.fire({
+            icon: '<?= session('alert.type') ?>',
+            title: '<?= session('alert.title') ?>',
+            text: '<?= session('alert.message') ?>',
+        });
+    </script>
+<?php endif; ?>
 
 
    <!-- Core JS -->
+
+
+
 <!-- build:js <?= base_url('assets/vendor/js/core.js') ?> -->
 <script src="<?= base_url('assets/vendor/libs/jquery/jquery.js') ?>"></script>
 <script src="<?= base_url('assets/vendor/libs/popper/popper.js') ?>"></script>
