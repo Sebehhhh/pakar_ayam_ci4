@@ -51,7 +51,7 @@
         <!-- Dashboard -->
         <li class="menu-item active">
             <a href="<?= base_url('/dashboard') ?>" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <i class=" bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
@@ -59,7 +59,7 @@
         <!-- Auth -->
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <i class="menu-icon tf-icons bx bx-lock"></i>
                 <div data-i18n="Layouts">Auth</div>
             </a>
 
@@ -70,7 +70,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="<?= base_url('/user') ?>" class="menu-link">
+                    <a href="<?= base_url('/role') ?>" class="menu-link">
                         <div data-i18n="Without menu">Role</div>
                     </a>
                 </li>

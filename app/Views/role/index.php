@@ -11,33 +11,29 @@
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-12">
 
-                        <h3 class="mt-2 mb-2 mx-2">Management Users</h3>
-                        <!-- Add User Button -->
-                        <a href="<?= base_url('user/create') ?>" class="btn btn-primary mb-3 mt-3 mx-3">Add</a>
-                        <!-- /Add User Button -->
+                        <h3 class="mt-2 mb-2 mx-2">Management Roles</h3>
+                        <!-- Add Role Button -->
+                        <a href="<?= base_url('role/create') ?>" class="btn btn-primary mb-3 mt-3 mx-3">Add</a>
+                        <!-- /Add Role Button -->
 
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>Username</th>
                                     <th>Role</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($users as $index => $user) : ?>
+                                <?php foreach ($roles as $index => $role) : ?>
                                     <tr>
                                         <td><?= $index + 1 ?></td>
-                                        <td><?= $user['nama']; ?></td>
-                                        <td><?= $user['username']; ?></td>
-                                        <td><?= $user['role']; ?></td>
+                                        <td><?= $role['role']; ?></td>
                                         <td>
-                                            <a href="<?= base_url('user/edit/' . $user['id']) ?>" class="btn btn-warning">
+                                            <a href="<?= base_url('role/edit/' . $role['id']) ?>" class="btn btn-warning">
                                                 <i class="bx bx-pencil"></i>
                                             </a>
-                                            <button type="button" class="btn btn-danger delete-user" data-id="<?= $user['id'] ?>">
+                                            <button type="button" class="btn btn-danger delete-role" data-id="<?= $role['id'] ?>">
                                                 <i class="bx bx-trash"></i>
                                             </button>
                                         </td>

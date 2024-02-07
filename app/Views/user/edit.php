@@ -14,11 +14,11 @@
                         <!-- Edit User Form -->
                         <form action="<?= base_url('user/update/' . $user['id']) ?>" method="post" class="mb-4 mx-3 mt-3">
                             <div class="mb-3">
-                                <label for="nama" class="form-label">Nama</label>
+                                <label for="nama" class="form-label">Nama</label><span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="nama" name="nama" value="<?= $user['nama'] ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
+                                <label for="username" class="form-label">Username</label><span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="username" name="username" value="<?= $user['username'] ?>" required>
                             </div>
                             <div class="mb-3">
@@ -27,7 +27,7 @@
                                 <small><i class="bx bx-info-circle"></i>kosongkan jika tidak ingin mengubah password</small>
                             </div>
                             <div class="mb-3">
-                                <label for="role_id" class="form-label">Role</label>
+                                <label for="role_id" class="form-label">Role</label><span class="text-danger">*</span></label>
                                 <select class="form-select" id="role_id" name="role_id" required>
                                     <?php foreach ($roles as $role) : ?>
                                         <option value="<?= $role['id'] ?>" <?= $user['role_id'] == $role['id'] ? 'selected' : '' ?>><?= $role['role'] ?></option>
@@ -36,6 +36,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
+                            <p class="mt-2"><i class="bx bx-info-circle"></i> <small>Tanda (<span class="text-danger">*</span></label>) Wajib Diisi!</small></p>
                         </form>
                         <!-- /Edit User Form -->
 

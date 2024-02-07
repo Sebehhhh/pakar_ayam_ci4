@@ -116,6 +116,9 @@
     </script>
 <?php endif; ?>
 
+<?= $this->include('layouts/partials/script') ?>   
+
+
 <!-- Core JS -->
 <script src="<?= base_url('assets/vendor/libs/jquery/jquery.js') ?>"></script>
 <script src="<?= base_url('assets/vendor/libs/popper/popper.js') ?>"></script>

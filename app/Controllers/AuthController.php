@@ -9,8 +9,16 @@ class AuthController extends Controller
 {
     public function index()
     {
+        if (session()->has('access_token')) {
+            // Jika masih ada session access_token, redirect ke dashboard
+            $this->setFlashAlert('error', 'Upsss', 'Anda tidak bisa mengakses halaman login jika sudah melakukan login!');
+            return redirect()->to('/dashboard');
+        }
+
+        // Jika tidak ada session access_token, tampilkan halaman login
         return view('login');
     }
+
 
     public function login()
     {
@@ -40,26 +48,29 @@ class AuthController extends Controller
         ]);
 
         // Tangani respons dari API
-        if ($response->getStatusCode() === 200) {
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode === 200) {
             $data = json_decode($response->getBody(), true);
 
             // Simpan token akses dalam sesi
             $session = session();
-
-            // Tetapkan waktu kedaluwarsa sesi menjadi 30 menit dari sekarang
-            $expireTime = time() + (30 * 60); // 30 menit * 60 detik
-            $session->set('expire_time', $expireTime);
             $session->set('access_token', $data['access_token']);
             $session->set('id', $data['user_id']);
 
             $this->setFlashAlert('success', 'Login Berhasil', 'Selamat datang!');
             return redirect()->to('/dashboard');
+        } elseif ($statusCode === 401) {
+            // Penanganan jika autentikasi gagal
+            $this->setFlashAlert('error', 'Login gagal', 'Nama pengguna atau kata sandi salah.');
+            return redirect()->to('/');
         } else {
-            // Tangani kasus jika login gagal
-            $this->setFlashAlert('error', 'Login gagal', 'Username atau password salah.');
+            // Penanganan untuk kode status lainnya
+            $this->setFlashAlert('error', 'Login gagal', 'Ada masalah ketika memproses login');
             return redirect()->to('/');
         }
     }
+
 
 
     private function setFlashAlert($type, $title, $message)

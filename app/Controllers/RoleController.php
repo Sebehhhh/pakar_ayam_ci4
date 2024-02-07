@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use GuzzleHttp\Client;
 
-class UserController extends BaseController
+class RoleController extends BaseController
 {
     private function setFlashAlert($type, $title, $message)
     {
@@ -22,11 +22,11 @@ class UserController extends BaseController
         if (session()->has('access_token')) {
             $client = new Client();
 
-            $response = $client->request('GET', 'http://127.0.0.1:8000/api/users');
+            $response = $client->request('GET', 'http://127.0.0.1:8000/api/roles');
 
-            $users = json_decode($response->getBody(), true);
+            $roles = json_decode($response->getBody(), true);
 
-            return view('user/index', ['users' => $users]);
+            return view('role/index', ['roles' => $roles]);
         } else {
             return view('errors/html/error_401'); // Redirect ke halaman login misalnya
         }
@@ -35,12 +35,7 @@ class UserController extends BaseController
     public function create()
     {
         if (session()->has('access_token')) {
-            $client = new Client();
-            // Mengambil data peran (role) dari API
-            $responseRoles = $client->request('GET', 'http://127.0.0.1:8000/api/role');
-            $roles = json_decode($responseRoles->getBody(), true);
-
-            return view('user/create', ['roles' => $roles]);
+            return view('role/create');
         } else {
             return view('errors/html/error_401'); // Redirect ke halaman login misalnya
         }
@@ -53,26 +48,16 @@ class UserController extends BaseController
 
             // Ambil data yang dikirimkan melalui form
             $data = [
-                'nama' => $this->request->getPost('nama'),
-                'username' => $this->request->getPost('username'),
-                'password' => $this->request->getPost('password'),
-                'role_id' => $this->request->getPost('role_id'),
+                'role' => $this->request->getPost('role'),
             ];
 
-            // Periksa apakah semua bidang sudah diisi
-            if (empty($nama) || empty($username) || empty($password) || empty($role_id)) {
-                // Jika ada bidang yang kosong, tampilkan pesan kesalahan
-                $this->setFlashAlert('error', 'Gagal', 'Semua bidang harus diisi');
-                return redirect()->back()->withInput();
-            }
-
             // Kirim data menggunakan HTTP POST
-            $response = $client->request('POST', 'http://127.0.0.1:8000/api/users', [
+            $response = $client->request('POST', 'http://127.0.0.1:8000/api/roles', [
                 'json' => $data,
             ]);
             $this->setFlashAlert('success', 'Berhasil', 'Data Berhasil Ditambahkan');
             // Tampilkan pesan atau alihkan ke halaman lain sesuai kebutuhan
-            return redirect()->to('/user');
+            return redirect()->to('/role');
         } else {
             return view('errors/html/error_401'); // Redirect ke halaman login misalnya
         }
@@ -82,15 +67,11 @@ class UserController extends BaseController
     {
         if (session()->has('access_token')) {
             $client = new Client();
-            // Mendapatkan data pengguna yang akan diedit dari API
-            $responseUser = $client->request('GET', 'http://127.0.0.1:8000/api/users/' . $id);
-            $user = json_decode($responseUser->getBody(), true);
+            // Mendapatkan data role yang akan diedit dari API
+            $responseRole = $client->request('GET', 'http://127.0.0.1:8000/api/roles/' . $id);
+            $role = json_decode($responseRole->getBody(), true);
 
-            // Mendapatkan data peran (role) dari API
-            $responseRoles = $client->request('GET', 'http://127.0.0.1:8000/api/role');
-            $roles = json_decode($responseRoles->getBody(), true);
-
-            return view('user/edit', ['user' => $user, 'roles' => $roles]);
+            return view('role/edit', ['role' => $role]);
         } else {
             return view('errors/html/error_401'); // Redirect ke halaman login misalnya
         }
@@ -103,19 +84,16 @@ class UserController extends BaseController
 
             // Ambil data yang dikirimkan melalui form
             $data = [
-                'nama' => $this->request->getPost('nama'),
-                'username' => $this->request->getPost('username'),
-                'password' => $this->request->getPost('password'),
-                'role_id' => $this->request->getPost('role_id'),
+                'role' => $this->request->getPost('role'),
             ];
 
             // Kirim data menggunakan HTTP PUT
-            $response = $client->request('PUT', 'http://127.0.0.1:8000/api/users/' . $id, [
+            $response = $client->request('PUT', 'http://127.0.0.1:8000/api/roles/' . $id, [
                 'json' => $data,
             ]);
             $this->setFlashAlert('success', 'Berhasil', 'Data Berhasil Diubah');
             // Tampilkan pesan atau alihkan ke halaman lain sesuai kebutuhan
-            return redirect()->to('/user');
+            return redirect()->to('/role');
         } else {
             return view('errors/html/error_401'); // Redirect ke halaman login misalnya
         }
@@ -126,22 +104,22 @@ class UserController extends BaseController
         if (session()->has('access_token')) {
             $client = new Client();
 
-            // Kirim permintaan HTTP DELETE untuk menghapus data pengguna
-            $response = $client->request('DELETE', 'http://127.0.0.1:8000/api/users/' . $id);
+            // Kirim permintaan HTTP DELETE untuk menghapus data role
+            $response = $client->request('DELETE', 'http://127.0.0.1:8000/api/roles/' . $id);
 
             // Periksa kode status respons
             $statusCode = $response->getStatusCode();
 
-            // Jika pengguna berhasil dihapus, tampilkan pesan sukses
+            // Jika role berhasil dihapus, tampilkan pesan sukses
             if ($statusCode === 200) {
                 $this->setFlashAlert('success', 'Berhasil', 'Data Berhasil Dihapus');
             } else {
                 // Jika terjadi kesalahan saat menghapus, tampilkan pesan error
-                $this->setFlashAlert('error', 'Gagal', 'Terjadi kesalahan saat menghapus data pengguna');
+                $this->setFlashAlert('error', 'Gagal', 'Terjadi kesalahan saat menghapus data role');
             }
 
-            // Redirect ke halaman daftar pengguna
-            return redirect()->to('/user');
+            // Redirect ke halaman daftar role
+            return redirect()->to('/role');
         } else {
             // Jika tidak ada token akses, redirect ke halaman login
             return view('errors/html/error_401');
