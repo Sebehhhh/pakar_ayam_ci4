@@ -12,6 +12,9 @@ use CodeIgniter\Config\BaseConfig;
  */
 class Encryption extends BaseConfig
 {
+    public $enabled = true;
+
+
     /**
      * --------------------------------------------------------------------------
      * Encryption Key Starter

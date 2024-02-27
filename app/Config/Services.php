@@ -2,6 +2,7 @@
 
 namespace Config;
 
+// use Config\App;
 use CodeIgniter\Config\BaseService;
 
 /**
@@ -19,6 +20,9 @@ use CodeIgniter\Config\BaseService;
  */
 class Services extends BaseService
 {
+    // public static $sessionConfig = config('App')->sessionConfig;
+    // public static $sessionConfig = config('App')->sessionConfig;
+
     /*
      * public static function example($getShared = true)
      * {
