@@ -6,6 +6,16 @@ use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
 {
+    // public $sessionConfig = [
+    //     'sessionDriver' => 'CodeIgniter\Session\Handlers\FileHandler',
+    //     'sessionCookieName' => 'ci_session',
+    //     'sessionExpiration' => 3600,
+    //     'sessionSavePath' => null,
+    //     'sessionMatchIP' => false,
+    //     'sessionTimeToUpdate' => 300,
+    //     'sessionRegenerateDestroy' => false,
+    // ];
+
     /**
      * --------------------------------------------------------------------------
      * Base Site URL

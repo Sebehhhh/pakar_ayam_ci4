@@ -12,14 +12,14 @@
                     <div class="col-sm-12">
 
                         <!-- Edit User Form -->
-                        <form action="<?= base_url('user/update/' . $user['id']) ?>" method="post" class="mb-4 mx-3 mt-3">
+                        <form action="<?= base_url('user/update/' . $userData['id']) ?>" method="post" class="mb-4 mx-3 mt-3">
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama</label><span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="nama" name="nama" value="<?= $user['nama'] ?>" required>
+                                <input type="text" class="form-control" id="nama" name="nama" value="<?= $userData['nama'] ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label><span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="username" name="username" value="<?= $user['username'] ?>" required>
+                                <input type="text" class="form-control" id="username" name="username" value="<?= $userData['username'] ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
@@ -29,8 +29,8 @@
                             <div class="mb-3">
                                 <label for="role_id" class="form-label">Role</label><span class="text-danger">*</span></label>
                                 <select class="form-select" id="role_id" name="role_id" required>
-                                    <?php foreach ($roles as $role) : ?>
-                                        <option value="<?= $role['id'] ?>" <?= $user['role_id'] == $role['id'] ? 'selected' : '' ?>><?= $role['role'] ?></option>
+                                    <?php foreach ($rolesData as $role) : ?>
+                                        <option value="<?= $role['id'] ?>" <?= $userData['role_id'] == $role['id'] ? 'selected' : '' ?>><?= $role['role'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>

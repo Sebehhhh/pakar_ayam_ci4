@@ -27,23 +27,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($users as $index => $user) : ?>
+                                <?php $n = 1;
+                                foreach ($userData as $user) : ?>
                                     <tr>
-                                        <td><?= $index + 1 ?></td>
+                                        <td><?= $n++; ?></td>
                                         <td><?= $user['nama']; ?></td>
                                         <td><?= $user['username']; ?></td>
-                                        <td><?= $user['role']; ?></td>
+                                        <td><?= $user['role_name']; ?></td>
                                         <td>
-                                            <a href="<?= base_url('user/edit/' . $user['id']) ?>" class="btn btn-warning">
-                                                <i class="bx bx-pencil"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-danger delete-user" data-id="<?= $user['id'] ?>">
-                                                <i class="bx bx-trash"></i>
-                                            </button>
+                                            <a href="<?= base_url('user/edit/' . $user['id']); ?>" class="btn btn-warning"><i class="bx bx-pencil"></i></a>
+                                            <button class="btn btn-danger delete-btn" data-id="<?= $user['id']; ?>"><i class="bx bx-trash"></i></button>
                                         </td>
+
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
+
                         </table>
 
                     </div>

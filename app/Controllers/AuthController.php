@@ -2,72 +2,12 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
 use CodeIgniter\Controller;
+use CodeIgniter\API\ResponseTrait;
 
 class AuthController extends Controller
 {
-    public function index()
-    {
-        if (session()->has('access_token')) {
-            // Jika masih ada session access_token, redirect ke dashboard
-            $this->setFlashAlert('error', 'Upsss', 'Anda tidak bisa mengakses halaman login jika sudah melakukan login!');
-            return redirect()->to('/dashboard');
-        }
-
-        // Jika tidak ada session access_token, tampilkan halaman login
-        return view('login');
-    }
-
-
-    public function login()
-    {
-        // Ambil data dari form login
-        $username = $this->request->getPost('username');
-        $password = $this->request->getPost('password');
-
-        // Validasi data
-        $validationRules = [
-            'username' => 'required',
-            'password' => 'required'
-        ];
-
-        if (!$this->validate($validationRules)) {
-            // Jika validasi gagal, tampilkan Sweet Alert
-            $this->setFlashAlert('error', 'Validasi gagal', 'Silakan isi semua kolom dengan benar.');
-            return redirect()->to('/')->withInput()->with('validation', $this->validator);
-        }
-
-        // Kirim permintaan login ke API
-        $client = \Config\Services::curlrequest();
-        $response = $client->request('POST', 'http://127.0.0.1:8000/api/token', [
-            'form_params' => [
-                'username' => $username,
-                'password' => $password
-            ]
-        ]);
-
-        // Tangani respons dari API
-        $statusCode = $response->getStatusCode();
-
-        if ($statusCode === 200) {
-            $data = json_decode($response->getBody(), true);
-
-            // Simpan token akses dalam sesi
-            $session = session();
-            $session->set('access_token', $data['access_token']);
-            $session->set('id', $data['user_id']);
-
-            $this->setFlashAlert('success', 'Login Berhasil', 'Selamat datang!');
-            return redirect()->to('/dashboard');
-        } else {
-            // Penanganan untuk kode status lainnya
-            $this->setFlashAlert('error', 'Login gagal', 'Ada masalah ketika memproses login');
-            return redirect()->to('/');
-        }
-    }
-
-
+    use ResponseTrait;
 
     private function setFlashAlert($type, $title, $message)
     {
@@ -79,16 +19,66 @@ class AuthController extends Controller
         ]);
     }
 
+    public function index()
+    {
+        // Tampilkan halaman login
+        return view('login');
+    }
+
+    public function login()
+    {
+        $request = \Config\Services::request();
+        $client = \Config\Services::curlrequest();
+
+        $username = $request->getPost('username');
+        $password = $request->getPost('password');
+
+        try {
+            $response = $client->request('POST', 'http://localhost:8000/auth/token', [
+                'form_params' => [
+                    'username' => $username,
+                    'password' => $password
+                ]
+            ]);
+
+            $data = json_decode($response->getBody(), true);
+
+
+            // Token diterima, simpan token di sesi
+            session()->set('access_token', $data['access_token']);
+
+            $this->setFlashAlert('success', 'Success', 'Welcome to Sistem Pakar!');
+            return redirect()->to('/dashboard');
+        } catch (\Exception $e) {
+            $this->setFlashAlert('error', 'Failed', 'Invalid Username or Password');
+            return redirect()->back();
+        }
+    }
+
+
     public function logout()
     {
-        // Menghapus sesi access_token
-        $session = session();
-        $session->remove('access_token');
+        // Periksa apakah token akses tersedia di sesi
+        if (session()->has('access_token')) {
+            // Ambil token akses dari sesi
+            $access_token = session()->get('access_token');
 
-        // Menghapus sesi expire_time jika ada
-        $session->remove('expire_time');
+            // Buat permintaan ke endpoint logout di API FastAPI
+            $client = \Config\Services::curlrequest();
+            $response = $client->request('POST', 'http://localhost:8000/auth/logout', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $access_token
+                ]
+            ]);
 
-        $this->setFlashAlert('success', 'Logout Berhasil', 'Sesi anda telah berakhir');
-        return redirect()->to('/')->with('success', 'Logout berhasil');
+            // Periksa kode status respons untuk memastikan logout berhasil
+            if ($response->getStatusCode() === 200) {
+                // Jika berhasil, hapus token akses dari sesi
+                session()->remove('access_token');
+            }
+        }
+
+        $this->setFlashAlert('success', 'Berhasil', 'Anda sudah logout!');
+        return redirect()->to('/login');
     }
 }
