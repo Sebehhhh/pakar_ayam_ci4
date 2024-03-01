@@ -15,14 +15,11 @@ $routes->get('/dashboard', 'DashboardController::index');
 #route user
 $routes->get('/user', 'UserController::index');
 $routes->post('/user/store', 'UserController::store');
-$routes->get('/user/edit/(:num)', 'UserController::edit/$1');
 $routes->post('/user/update/(:num)', 'UserController::update/$1');
 $routes->get('/user/delete/(:num)', 'UserController::delete/$1');
 
 // #route role
 // $routes->get('/role', 'RoleController::index');
-// $routes->get('/role/create', 'RoleController::create');
 // $routes->post('/role/store', 'RoleController::store');
-// $routes->get('/role/edit/(:num)', 'RoleController::edit/$1');
 // $routes->post('/role/update/(:num)', 'RoleController::update/$1');
 // $routes->get('/role/delete/(:num)', 'RoleController::delete/$1');

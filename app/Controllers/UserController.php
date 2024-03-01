@@ -116,49 +116,6 @@ class UserController extends BaseController
         }
     }
 
-    public function edit($id)
-    {
-        // Periksa apakah sesi memiliki token akses
-        if (session()->has('access_token')) {
-            // Ambil token akses dari sesi
-            $accessToken = session('access_token');
-
-            // Buat HTTP client
-            $client = \Config\Services::curlrequest();
-
-
-            // Lakukan permintaan HTTP GET ke endpoint user dengan id tertentu
-            $responseUser = $client->request('GET', 'http://127.0.0.1:8000/user/' . $id, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                    'Accept' => 'application/json'
-                ]
-            ]);
-            $responseRole = $client->request('GET', 'http://127.0.0.1:8000/role', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                    'Accept' => 'application/json'
-                ]
-            ]);
-
-            // Periksa apakah permintaan berhasil
-            if ($responseUser->getStatusCode() === 200 && $responseRole->getStatusCode() === 200) {
-                // Ambil data pengguna dari respons JSON
-                $userData = json_decode($responseUser->getBody(), true);
-                $rolesData = json_decode($responseRole->getBody(), true);
-                // dd($rolesData);
-                // Tampilkan form edit user beserta data pengguna yang akan diedit
-                return view('user/edit', ['userData' => $userData, 'rolesData' => $rolesData]);
-            } else {
-                // Tanggapi jika permintaan tidak berhasil
-                return $this->failServerError('Failed to fetch user data for editing');
-            }
-        } else {
-            // Tanggapi jika tidak ada token akses dalam sesi
-            return view('errors/html/error_401');
-        }
-    }
-
     public function update($id)
     {
         // Periksa apakah sesi memiliki token akses

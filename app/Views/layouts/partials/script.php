@@ -53,3 +53,13 @@
         });
     });
 </script>
+
+<script>
+    $(document).ready(function() {
+        // Handle click event on edit button
+        $('.edit-btn').click(function() {
+            var userId = $(this).data('id'); // Get user ID from data-id attribute
+            $('#editUserModal' + userId).modal('show'); // Show modal edit with corresponding ID
+        });
+    });
+</script>

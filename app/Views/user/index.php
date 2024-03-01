@@ -35,11 +35,54 @@
                                         <td><?= $user['username']; ?></td>
                                         <td><?= $user['role_name']; ?></td>
                                         <td>
-                                            <a href="<?= base_url('user/edit/' . $user['id']); ?>" class="btn btn-warning"><i class="bx bx-pencil"></i></a>
+                                            <button class="btn btn-warning edit-btn" data-id="<?= $user['id']; ?>"><i class="bx bx-pencil"></i></button>
                                             <button class="btn btn-danger delete-btn" data-id="<?= $user['id']; ?>"><i class="bx bx-trash"></i></button>
                                         </td>
-
                                     </tr>
+
+                                    <!-- Edit User Modal -->
+                                    <div class="modal fade" id="editUserModal<?= $user['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel<?= $user['id']; ?>" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editUserModalLabel<?= $user['id']; ?>">Edit User</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="<?= base_url('user/update/' . $user['id']); ?>" method="post">
+                                                        <div class="form-group">
+                                                            <label for="name">Name</label><span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" name="nama" value="<?= $user['nama']; ?>" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="username">Username</label><span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" name="username" value="<?= $user['username']; ?>" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="password">Password</label>
+                                                            <input type="password" class="form-control" name="password" placeholder="********">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="role">Role</label><span class="text-danger">*</span></label>
+                                                            <select class="form-select" name="role_id" required>
+                                                                <?php foreach ($rolesData as $role) : ?>
+                                                                    <option value="<?= $role['id']; ?>" <?= ($role['id'] == $user['role_id']) ? 'selected' : ''; ?>><?= $role['role']; ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Edit User Modal -->
+
                                 <?php endforeach; ?>
                             </tbody>
 
@@ -66,20 +109,20 @@
             <div class="modal-body">
                 <form action="<?= base_url('user/store'); ?>" method="post">
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Name <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="nama" placeholder="Enter name" required>
                     </div>
                     <div class="form-group">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="username" placeholder="Enter username" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" class="form-control" name="password" placeholder="Enter password" required>
                     </div>
                     <div class="form-group">
-                        <label for="role">Role</label>
-                        <select class="form-control" name="role_id" required>
+                        <label for="role">Role <span class="text-danger">*</span></label>
+                        <select class="form-select" name="role_id" required>
                             <option value="">Select Role</option>
                             <?php foreach ($rolesData as $role) : ?>
                                 <option value="<?= $role['id']; ?>"><?= $role['role']; ?></option>
@@ -87,10 +130,10 @@
                         </select>
                     </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
             </div>
             </form>
         </div>
