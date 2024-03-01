@@ -38,45 +38,29 @@ class UserController extends BaseController
             if ($response->getStatusCode() === 200) {
                 // Ambil data pengguna dari respons JSON
                 $userData = json_decode($response->getBody(), true);
-                // dd($userData);
-                return view('user/index', ['userData' => $userData]);
+
+                // Lakukan permintaan HTTP GET ke endpoint roles
+                $rolesResponse = $client->request('GET', 'http://127.0.0.1:8000/role', [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $accessToken,
+                        'Accept' => 'application/json'
+                    ]
+                ]);
+
+                // Periksa apakah permintaan peran berhasil
+                if ($rolesResponse->getStatusCode() === 200) {
+                    // Ambil data peran dari respons JSON
+                    $rolesData = json_decode($rolesResponse->getBody(), true);
+                    // dd($rolesData);
+                    // Kirim data pengguna dan data peran ke tampilan
+                    return view('user/index', ['userData' => $userData, 'rolesData' => $rolesData]);
+                } else {
+                    // Tanggapi jika permintaan peran tidak berhasil
+                    return $this->failServerError('Failed to fetch roles data');
+                }
             } else {
                 // Tanggapi jika permintaan tidak berhasil
                 return $this->failServerError('Failed to fetch user data');
-            }
-        } else {
-            // Tanggapi jika tidak ada token akses dalam sesi
-            return view('errors/html/error_401');
-        }
-    }
-
-    public function create()
-    {
-        // Periksa apakah sesi memiliki token akses
-        if (session()->has('access_token')) {
-            // Ambil token akses dari sesi
-            $accessToken = session('access_token');
-
-            // Buat HTTP client
-            $client = \Config\Services::curlrequest();
-
-            $response = $client->request('GET', 'http://127.0.0.1:8000/role', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                    'Accept' => 'application/json'
-                ]
-            ]);
-
-            // Periksa apakah permintaan berhasil
-            if ($response->getStatusCode() === 200) {
-                // Ambil data roles dari respons JSON
-                $rolesData = json_decode($response->getBody(), true);
-
-                // Tampilkan form create user beserta data roles
-                return view('user/create', ['rolesData' => $rolesData]);
-            } else {
-                // Tanggapi jika permintaan tidak berhasil
-                return $this->failServerError('Failed to fetch roles data');
             }
         } else {
             // Tanggapi jika tidak ada token akses dalam sesi
@@ -98,7 +82,7 @@ class UserController extends BaseController
                 'password' => $this->request->getPost('password'),
                 'role_id' => $this->request->getPost('role_id'),
             ];
-
+            // dd($userData);
             // Buat HTTP client
             $client = \Config\Services::curlrequest();
 

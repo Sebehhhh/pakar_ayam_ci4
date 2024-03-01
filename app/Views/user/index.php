@@ -13,7 +13,7 @@
 
                         <h3 class="mt-2 mb-2 mx-2">Management Users</h3>
                         <!-- Add User Button -->
-                        <a href="<?= base_url('user/create') ?>" class="btn btn-primary mb-3 mt-3 mx-3">Add</a>
+                        <button type="button" class="btn btn-primary mb-3 mt-3 mx-3" data-toggle="modal" data-target="#addUserModal">Add</button>
                         <!-- /Add User Button -->
 
                         <table class="table table-hover">
@@ -52,5 +52,51 @@
     </div>
 </div>
 <!-- / Content -->
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('user/store'); ?>" method="post">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="nama" placeholder="Enter name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder="Enter password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select class="form-control" name="role_id" required>
+                            <option value="">Select Role</option>
+                            <?php foreach ($rolesData as $role) : ?>
+                                <option value="<?= $role['id']; ?>"><?= $role['role']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Add User Modal -->
+
 
 <?= $this->endSection() ?>

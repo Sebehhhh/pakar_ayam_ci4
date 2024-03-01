@@ -16,6 +16,10 @@ class App extends BaseConfig
     //     'sessionRegenerateDestroy' => false,
     // ];
 
+
+    public $encryptionKey = 'fe71370dc5937b6b06531b09eae3632f530b229c6c409fa8769671045da31cba';
+
+
     /**
      * --------------------------------------------------------------------------
      * Base Site URL

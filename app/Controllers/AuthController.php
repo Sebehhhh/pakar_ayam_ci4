@@ -58,27 +58,30 @@ class AuthController extends Controller
 
     public function logout()
     {
-        // Periksa apakah token akses tersedia di sesi
-        if (session()->has('access_token')) {
-            // Ambil token akses dari sesi
-            $access_token = session()->get('access_token');
 
-            // Buat permintaan ke endpoint logout di API FastAPI
-            $client = \Config\Services::curlrequest();
+        $client = \Config\Services::curlrequest();
+        // Ambil token akses dari sesi
+        $access_token = session()->get('access_token');
+
+        // Buat permintaan ke endpoint logout di API FastAPI
+        try {
             $response = $client->request('POST', 'http://localhost:8000/auth/logout', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $access_token
                 ]
             ]);
 
-            // Periksa kode status respons untuk memastikan logout berhasil
             if ($response->getStatusCode() === 200) {
-                // Jika berhasil, hapus token akses dari sesi
-                session()->remove('access_token');
-            }
-        }
 
-        $this->setFlashAlert('success', 'Berhasil', 'Anda sudah logout!');
-        return redirect()->to('/login');
+                // Jika berhasil logout, set flash alert dan arahkan ke halaman login
+                $this->setFlashAlert('success', 'Berhasil', 'Anda sudah logout!');
+                return redirect()->to('/login');
+                // session()->remove('access_token');
+            }
+        } catch (\Exception $e) {
+            // Tangani kesalahan dengan menampilkan pesan kesalahan dan arahkan ke halaman login
+            $this->setFlashAlert('error', 'Gagal', 'Terjadi kesalahan saat melakukan logout: ' . $e->getMessage());
+            return redirect()->to('/login');
+        }
     }
 }
