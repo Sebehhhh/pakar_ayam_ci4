@@ -73,10 +73,10 @@ class AuthController extends Controller
 
             if ($response->getStatusCode() === 200) {
 
-                // Jika berhasil logout, set flash alert dan arahkan ke halaman login
+                // Jika berhasil logout, set flash alert, hapus token dari sesi, dan arahkan ke halaman login
+                session()->remove('access_token'); // Hapus token dari sesi
                 $this->setFlashAlert('success', 'Berhasil', 'Anda sudah logout!');
                 return redirect()->to('/login');
-                // session()->remove('access_token');
             }
         } catch (\Exception $e) {
             // Tangani kesalahan dengan menampilkan pesan kesalahan dan arahkan ke halaman login
