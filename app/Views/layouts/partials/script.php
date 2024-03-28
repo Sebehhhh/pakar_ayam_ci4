@@ -26,6 +26,37 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Menangani klik pada tombol hapus role
+        document.querySelectorAll('.delete-role-btn').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                var roleId = this.getAttribute('data-id');
+
+                // Tampilkan SweetAlert konfirmasi
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda akan menghapus role ini.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect ke halaman delete role jika pengguna mengonfirmasi penghapusan
+                        window.location.href = '<?= base_url('/role/delete/'); ?>' + roleId;
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
         // Menangani klik pada tombol hapus
         document.querySelectorAll('.delete-btn').forEach(function(button) {
             button.addEventListener('click', function(event) {
@@ -60,6 +91,16 @@
         $('.edit-btn').click(function() {
             var userId = $(this).data('id'); // Get user ID from data-id attribute
             $('#editUserModal' + userId).modal('show'); // Show modal edit with corresponding ID
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Handle click event on edit role button
+        $('.edit-role-btn').click(function() {
+            var roleId = $(this).data('id'); // Get role ID from data-id attribute
+            $('#editRoleModal' + roleId).modal('show'); // Show modal edit role with corresponding ID
         });
     });
 </script>
