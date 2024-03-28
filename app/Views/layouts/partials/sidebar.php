@@ -49,7 +49,7 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item active">
+        <li class="menu-item">
             <a href="<?= base_url('/dashboard') ?>" class="menu-link">
                 <i class=" bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -72,6 +72,32 @@
                 <li class="menu-item">
                     <a href="<?= base_url('/role') ?>" class="menu-link">
                         <div data-i18n="Without menu">Role</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Master Data -->
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-data"></i>
+                <div data-i18n="Layouts">Master Data</div>
+            </a>
+
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="<?= base_url('/gejala') ?>" class="menu-link">
+                        <div data-i18n="Without menu">Gejala</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="<?= base_url('/penyakit') ?>" class="menu-link">
+                        <div data-i18n="Without menu">Penyakit</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="<?= base_url('/rule') ?>" class="menu-link">
+                        <div data-i18n="Without menu">Rule</div>
                     </a>
                 </li>
             </ul>
