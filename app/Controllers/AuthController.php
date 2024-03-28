@@ -46,6 +46,8 @@ class AuthController extends Controller
 
             // Token diterima, simpan token di sesi
             session()->set('access_token', $data['access_token']);
+            session()->set('user_id', $data['user_id']);
+            session()->set('role_id', $data['role_id']);
 
             $this->setFlashAlert('success', 'Success', 'Welcome to Sistem Pakar!');
             return redirect()->to('/dashboard');
