@@ -77,6 +77,8 @@ class AuthController extends Controller
 
                 // Jika berhasil logout, set flash alert, hapus token dari sesi, dan arahkan ke halaman login
                 session()->remove('access_token'); // Hapus token dari sesi
+                session()->remove('user_id');
+                session()->remove('role_id');
                 $this->setFlashAlert('success', 'Berhasil', 'Anda sudah logout!');
                 return redirect()->to('/login');
             }
