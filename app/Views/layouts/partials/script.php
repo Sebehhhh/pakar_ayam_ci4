@@ -54,6 +54,36 @@
     });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Menangani klik pada tombol hapus gejala
+        document.querySelectorAll('.delete-gejala-btn').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                var gejalaId = this.getAttribute('data-id');
+
+                // Tampilkan SweetAlert konfirmasi
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda akan menghapus gejala ini.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect ke halaman delete gejala jika pengguna mengonfirmasi penghapusan
+                        window.location.href = '<?= base_url('/gejala/delete/'); ?>' + gejalaId;
+                    }
+                });
+            });
+        });
+    });
+</script>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -101,6 +131,16 @@
         $('.edit-role-btn').click(function() {
             var roleId = $(this).data('id'); // Get role ID from data-id attribute
             $('#editRoleModal' + roleId).modal('show'); // Show modal edit role with corresponding ID
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Handle click event on edit gejala button
+        $('.edit-gejala-btn').click(function() {
+            var gejalaId = $(this).data('id'); // Get gejala ID from data-id attribute
+            $('#editGejalaModal' + gejalaId).modal('show'); // Show modal edit gejala with corresponding ID
         });
     });
 </script>
