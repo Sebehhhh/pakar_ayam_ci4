@@ -19,7 +19,7 @@ $routes->post('/user/update/(:num)', 'UserController::update/$1');
 $routes->get('/user/delete/(:num)', 'UserController::delete/$1');
 
 // #route role
-// $routes->get('/role', 'RoleController::index');
-// $routes->post('/role/store', 'RoleController::store');
-// $routes->post('/role/update/(:num)', 'RoleController::update/$1');
-// $routes->get('/role/delete/(:num)', 'RoleController::delete/$1');
+$routes->get('/role', 'RoleController::index');
+$routes->post('/role/store', 'RoleController::store');
+$routes->post('/role/update/(:num)', 'RoleController::update/$1');
+$routes->get('/role/delete/(:num)', 'RoleController::delete/$1');
