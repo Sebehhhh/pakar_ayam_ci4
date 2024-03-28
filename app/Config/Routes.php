@@ -29,3 +29,9 @@ $routes->get('/gejala', 'GejalaController::index');
 $routes->post('/gejala/store', 'GejalaController::store');
 $routes->post('/gejala/update/(:num)', 'GejalaController::update/$1');
 $routes->get('/gejala/delete/(:num)', 'GejalaController::delete/$1');
+
+#route gejala
+$routes->get('/penyakit', 'PenyakitController::index');
+$routes->post('/penyakit/store', 'PenyakitController::store');
+$routes->post('/penyakit/update/(:num)', 'PenyakitController::update/$1');
+$routes->get('/penyakit/delete/(:num)', 'PenyakitController::delete/$1');
