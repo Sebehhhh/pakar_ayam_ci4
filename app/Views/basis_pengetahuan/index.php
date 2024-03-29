@@ -72,11 +72,11 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="mb">MB</label><span class="text-danger">*</span></label>
+                                                                <label for="mb">MB</label><span class="text-danger">*</span>(Contoh: 0.2)</label>
                                                                 <input type="text" class="form-control" name="mb" value="<?= $basisPengetahuan['mb']; ?>" required>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="md">MD</label><span class="text-danger">*</span></label>
+                                                                <label for="md">MD</label><span class="text-danger">*</span>(Contoh: 0.2)</label>
                                                                 <input type="text" class="form-control" name="md" value="<?= $basisPengetahuan['md']; ?>" required>
                                                             </div>
                                                     </div>
@@ -133,11 +133,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="mb">MB <span class="text-danger">*</span></label>
+                        <label for="mb">MB <span class="text-danger">*</span>(Contoh: 0.2)</label>
                         <input type="text" class="form-control" name="mb" placeholder="Enter MB" required>
                     </div>
                     <div class="form-group">
-                        <label for="md">MD <span class="text-danger">*</span></label>
+                        <label for="md">MD <span class="text-danger">*</span>(Contoh: 0.2)</label>
                         <input type="text" class="form-control" name="md" placeholder="Enter MD" required>
                     </div>
 
