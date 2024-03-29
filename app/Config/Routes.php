@@ -44,3 +44,4 @@ $routes->get('/basisPengetahuan/delete/(:num)', 'BasisPengetahuanController::del
 
 #route diagnosis
 $routes->get('/diagnosis', 'DiagnosisController::index');
+$routes->post('/diagnosis/proses', 'DiagnosisController::proses');

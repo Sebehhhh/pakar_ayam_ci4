@@ -32,7 +32,9 @@
                                                         <option value="-0.8">Hampir Pasti Tidak</option>
                                                         <option value="-0.6">Kemungkinan Besar Tidak</option>
                                                         <option value="-0.4">Mungkin Tidak</option>
-                                                        <option value="0.4">Mungkin</option>
+                                                        <option value="-0.2">Sedikit Tidak Mungkin</option>
+                                                        <option value="0.2">Sedikit Mungkin</option>
+                                                        <option value="0.4">Mungkin Iya</option>
                                                         <option value="0.6">Kemungkinan Besar</option>
                                                         <option value="0.8">Hampir Pasti</option>
                                                         <option value="1.0">Pasti</option>
