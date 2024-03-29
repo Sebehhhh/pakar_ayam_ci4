@@ -85,94 +85,107 @@ class BasisPengetahuanController extends BaseController
         }
     }
 
-
     public function store()
     {
-        // Periksa apakah sesi memiliki token akses
-        if (session()->has('access_token')) {
-            // Ambil token akses dari sesi
-            $accessToken = session('access_token');
+        try {
+            // Periksa apakah sesi memiliki token akses
+            if (session()->has('access_token')) {
+                // Ambil token akses dari sesi
+                $accessToken = session('access_token');
 
-            // Ambil data yang dikirimkan dari form
-            $basisPengetahuanData = [
-                'penyakit_id' => $this->request->getPost('penyakit_id'),
-                'gejala_id' => $this->request->getPost('gejala_id'),
-                'mb' => $this->request->getPost('mb'),
-                'md' => $this->request->getPost('md')
-            ];
+                // Ambil data yang dikirimkan dari form
+                $basisPengetahuanData = [
+                    'penyakit_id' => $this->request->getPost('penyakit_id'),
+                    'gejala_id' => $this->request->getPost('gejala_id'),
+                    'mb' => $this->request->getPost('mb'),
+                    'md' => $this->request->getPost('md')
+                ];
 
-            // Buat HTTP client
-            $client = \Config\Services::curlrequest();
+                // Buat HTTP client
+                $client = \Config\Services::curlrequest();
 
-            // Lakukan permintaan HTTP POST ke endpoint basis_pengetahuan/store
-            $response = $client->request('POST', 'http://127.0.0.1:8000/basis_pengetahuan/store', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
-                'json' => $basisPengetahuanData, // Mengirim data dalam format JSON
-            ]);
+                // Lakukan permintaan HTTP POST ke endpoint basis_pengetahuan/store
+                $response = $client->request('POST', 'http://127.0.0.1:8000/basis_pengetahuan/store', [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $accessToken,
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                    ],
+                    'json' => $basisPengetahuanData, // Mengirim data dalam format JSON
+                ]);
 
-            // Periksa apakah permintaan berhasil
-            if ($response->getStatusCode() === 200) {
-                // Set pesan sukses
-                $this->setFlashAlert('success', 'Success', 'Basis pengetahuan created successfully');
-                return redirect()->to('/basisPengetahuan');
+                // Periksa apakah permintaan berhasil
+                if ($response->getStatusCode() === 200) {
+                    // Set pesan sukses
+                    $this->setFlashAlert('success', 'Success', 'Basis pengetahuan created successfully');
+                    return redirect()->to('/basisPengetahuan');
+                } else {
+                    // Tanggapi jika permintaan tidak berhasil
+                    $this->setFlashAlert('error', 'Error', 'Failed to create basis pengetahuan');
+                    return redirect()->to('/basisPengetahuan');
+                }
             } else {
-                // Tanggapi jika permintaan tidak berhasil
-                $this->setFlashAlert('error', 'Error', 'Failed to create basis pengetahuan');
-                return redirect()->to('/basisPengetahuan');
+                // Tanggapi jika tidak ada token akses dalam sesi
+                return view('errors/html/error_401');
             }
-        } else {
-            // Tanggapi jika tidak ada token akses dalam sesi
-            return view('errors/html/error_401');
+        } catch (\Exception $e) {
+            // Tangani kesalahan yang terjadi
+            $this->setFlashAlert('error', 'Error', 'Data Basis Pengetahuan Sudah Tersedia!');
+            return redirect()->to('/basisPengetahuan');
         }
     }
+
 
     public function update($id)
     {
-        // Periksa apakah sesi memiliki token akses
-        if (session()->has('access_token')) {
-            // Ambil token akses dari sesi
-            $accessToken = session('access_token');
+        try {
+            // Periksa apakah sesi memiliki token akses
+            if (session()->has('access_token')) {
+                // Ambil token akses dari sesi
+                $accessToken = session('access_token');
 
-            // Ambil data yang dikirimkan dari form
-            $basisPengetahuanData = [
-                'penyakit_id' => $this->request->getPost('penyakit_id'),
-                'gejala_id' => $this->request->getPost('gejala_id'),
-                'mb' => $this->request->getPost('mb'),
-                'md' => $this->request->getPost('md')
-            ];
+                // Ambil data yang dikirimkan dari form
+                $basisPengetahuanData = [
+                    'penyakit_id' => $this->request->getPost('penyakit_id'),
+                    'gejala_id' => $this->request->getPost('gejala_id'),
+                    'mb' => $this->request->getPost('mb'),
+                    'md' => $this->request->getPost('md')
+                ];
 
-            // Buat HTTP client
-            $client = \Config\Services::curlrequest();
+                // Buat HTTP client
+                $client = \Config\Services::curlrequest();
 
-            // Lakukan permintaan HTTP PUT ke endpoint basis_pengetahuan/update/(id)
-            $response = $client->request('PUT', 'http://127.0.0.1:8000/basis_pengetahuan/update/' . $id, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
-                'json' => $basisPengetahuanData, // Mengirim data dalam format JSON
-            ]);
+                // Lakukan permintaan HTTP PUT ke endpoint basis_pengetahuan/update/(id)
+                $response = $client->request('PUT', 'http://127.0.0.1:8000/basis_pengetahuan/update/' . $id, [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $accessToken,
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                    ],
+                    'json' => $basisPengetahuanData, // Mengirim data dalam format JSON
+                ]);
 
-            // Periksa apakah permintaan berhasil
-            if ($response->getStatusCode() === 200) {
-                // Set pesan sukses
-                $this->setFlashAlert('success', 'Success', 'Basis pengetahuan updated successfully');
-                return redirect()->to('/basisPengetahuan');
+                // Periksa apakah permintaan berhasil
+                if ($response->getStatusCode() === 200) {
+                    // Set pesan sukses
+                    $this->setFlashAlert('success', 'Success', 'Basis pengetahuan updated successfully');
+                    return redirect()->to('/basisPengetahuan');
+                } else {
+                    // Tanggapi jika permintaan tidak berhasil
+                    $this->setFlashAlert('error', 'Error', 'Failed to update basis pengetahuan');
+                    return redirect()->to('/basisPengetahuan');
+                }
             } else {
-                // Tanggapi jika permintaan tidak berhasil
-                $this->setFlashAlert('error', 'Error', 'Failed to update basis pengetahuan');
-                return redirect()->to('/basisPengetahuan');
+                // Tanggapi jika tidak ada token akses dalam sesi
+                return view('errors/html/error_401');
             }
-        } else {
-            // Tanggapi jika tidak ada token akses dalam sesi
-            return view('errors/html/error_401');
+        } catch (\Exception $e) {
+            // Tangani kesalahan yang terjadi
+            $this->setFlashAlert('error', 'Error', 'Data Basis Pengetahuan Sudah Tersedia!!');
+            return redirect()->to('/basisPengetahuan');
         }
     }
+
 
     public function delete($id)
     {
