@@ -102,6 +102,14 @@
                 </li>
             </ul>
         </li>
+
+        <li class="menu-item">
+            <a href="<?= base_url('/diagnosis') ?>" class="menu-link">
+                <i class="bx bx-search-alt"></i>
+                <div data-i18n="Diagnosis">Diagnosis</div>
+            </a>
+        </li>
+
     </ul>
 </aside>
 <!-- / Menu -->

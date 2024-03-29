@@ -41,3 +41,6 @@ $routes->get('/basisPengetahuan', 'BasisPengetahuanController::index');
 $routes->post('/basisPengetahuan/store', 'BasisPengetahuanController::store');
 $routes->post('/basisPengetahuan/update/(:num)', 'BasisPengetahuanController::update/$1');
 $routes->get('/basisPengetahuan/delete/(:num)', 'BasisPengetahuanController::delete/$1');
+
+#route diagnosis
+$routes->get('/diagnosis', 'DiagnosisController::index');
