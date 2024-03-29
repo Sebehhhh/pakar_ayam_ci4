@@ -30,8 +30,14 @@ $routes->post('/gejala/store', 'GejalaController::store');
 $routes->post('/gejala/update/(:num)', 'GejalaController::update/$1');
 $routes->get('/gejala/delete/(:num)', 'GejalaController::delete/$1');
 
-#route gejala
+#route penyakit
 $routes->get('/penyakit', 'PenyakitController::index');
 $routes->post('/penyakit/store', 'PenyakitController::store');
 $routes->post('/penyakit/update/(:num)', 'PenyakitController::update/$1');
 $routes->get('/penyakit/delete/(:num)', 'PenyakitController::delete/$1');
+
+#route basis pengetahuan
+$routes->get('/basisPengetahuan', 'BasisPengetahuanController::index');
+$routes->post('/basisPengetahuan/store', 'BasisPengetahuanController::store');
+$routes->post('/basisPengetahuan/update/(:num)', 'BasisPengetahuanController::update/$1');
+$routes->get('/basisPengetahuan/delete/(:num)', 'BasisPengetahuanController::delete/$1');

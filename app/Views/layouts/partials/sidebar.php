@@ -96,7 +96,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="<?= base_url('/rule') ?>" class="menu-link">
+                    <a href="<?= base_url('/basisPengetahuan') ?>" class="menu-link">
                         <div data-i18n="Without menu">Rule</div>
                     </a>
                 </li>

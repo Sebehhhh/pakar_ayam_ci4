@@ -114,6 +114,35 @@
     });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle click on delete basis pengetahuan button
+        document.querySelectorAll('.delete-basis-pengetahuan-btn').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                var basisPengetahuanId = this.getAttribute('data-id');
+
+                // Display SweetAlert confirmation
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda akan menghapus basis pengetahuan ini.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to delete basis pengetahuan page if user confirms deletion
+                        window.location.href = '<?= base_url('/basisPengetahuan/delete/'); ?>' + basisPengetahuanId;
+                    }
+                });
+            });
+        });
+    });
+</script>
 
 
 <script>
@@ -185,6 +214,17 @@
         });
     });
 </script>
+
+<script>
+    $(document).ready(function() {
+        // Handle click event on edit basis pengetahuan button
+        $('.edit-basis-pengetahuan-btn').click(function() {
+            var basisPengetahuanId = $(this).data('id'); // Get basis pengetahuan ID from data-id attribute
+            $('#editBasisPengetahuanModal' + basisPengetahuanId).modal('show'); // Show modal edit basis pengetahuan with corresponding ID
+        });
+    });
+</script>
+
 
 <script>
     $(document).ready(function() {
