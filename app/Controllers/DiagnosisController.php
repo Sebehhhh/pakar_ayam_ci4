@@ -63,6 +63,7 @@ class DiagnosisController extends BaseController
                 'threshold' => 0.5
             ];
 
+            // dd($data);
             // Buat HTTP client
             $client = \Config\Services::curlrequest();
 

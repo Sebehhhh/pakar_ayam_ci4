@@ -18,9 +18,17 @@
                                         <div class="card-body">
                                             <h5 class="card-title"><?= $hasil['penyakit']; ?></h5>
                                             <h6 class="card-subtitle mb-2 text-muted">Kemungkinan: <?= $hasil['kemungkinan']; ?></h6>
-                                            <p class="card-text">Gejala: <?= implode(', ', $hasil['gejala']); ?></p>
+                                            <p class="card-text">Gejala: <?= implode(', ', array_column($hasil['gejala'], 'nama_gejala')); ?></p>
                                             <p class="card-text">Detail: <?= $hasil['detail']; ?></p>
                                             <p class="card-text">Saran: <?= $hasil['saran']; ?></p>
+                                            <!-- Tampilkan riwayat permintaan diagnosa -->
+                                            <h6 class="card-subtitle mb-2 text-muted">Riwayat Permintaan Diagnosa:</h6>
+                                            <p class="card-text">
+                                                <?php foreach ($hasil['request_data']['kondisi'] as $gejala) : ?>
+                                                    <?= $gejala['nama_gejala']; ?> (Bobot: <?= $gejala['bobot']; ?>),
+                                                <?php endforeach; ?>
+                                                Threshold: <?= $hasil['request_data']['threshold']; ?>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
