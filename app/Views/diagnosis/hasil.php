@@ -14,8 +14,9 @@
                                     <div class="card-header" id="heading<?= $index ?>">
                                         <h2 class="mb-0">
                                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse<?= $index ?>" aria-expanded="<?= $index === 0 ? 'true' : 'false' ?>" aria-controls="collapse<?= $index ?>">
-                                                <?= $hasil['penyakit']; ?>
+                                                #<?= $index + 1 ?> <?= $hasil['penyakit']; ?>
                                             </button>
+
                                         </h2>
                                     </div>
                                     <div id="collapse<?= $index ?>" class="collapse <?= $index === 0 ? 'show' : '' ?>" aria-labelledby="heading<?= $index ?>" data-parent="#accordion">
