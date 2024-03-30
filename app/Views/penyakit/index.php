@@ -17,7 +17,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nama</th>
-                                        <th>Gambar</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -27,7 +26,6 @@
                                         <tr>
                                             <td><?= $n++; ?></td>
                                             <td><?= $penyakit['nama']; ?></td>
-                                            <td><?= $penyakit['gambar']; ?></td>
                                             <td>
                                                 <button class="btn btn-info show-detail-btn" data-id="<?= $penyakit['id']; ?>"><i class="bx bx-show"></i> </button>
                                                 <button class="btn btn-warning edit-penyakit-btn" data-id="<?= $penyakit['id']; ?>"><i class="bx bx-pencil"></i></button>
@@ -59,10 +57,11 @@
                                                                 <label for="saran">Saran</label>
                                                                 <textarea class="form-control" id="saran" rows="8" disabled><?= $penyakit['saran']; ?></textarea>
                                                             </div>
+                                                            <label for="gambar">Gambar</label>
                                                             <div class="form-group">
-                                                                <label for="gambar">Gambar</label>
-                                                                <input type="text" class="form-control" id="gambar" value="<?= $penyakit['gambar']; ?>" disabled>
+                                                                <img src="<?= base_url('/uploads/penyakit/' . $penyakit['gambar']); ?>" height="200px" width="200px" alt="Gambar Penyakit">
                                                             </div>
+
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
@@ -84,7 +83,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="<?= base_url('penyakit/update/' . $penyakit['id']); ?>" method="post">
+                                                        <form action="<?= base_url('penyakit/update/' . $penyakit['id']); ?>" method="post" enctype="multipart/form-data">
                                                             <div class="form-group">
                                                                 <label for="nama">Nama</label><span class="text-danger">*</span></label>
                                                                 <input type="text" class="form-control" name="nama" value="<?= $penyakit['nama']; ?>" required>
@@ -98,20 +97,25 @@
                                                                 <textarea class="form-control" name="saran" required rows="8"><?= $penyakit['saran']; ?></textarea>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="gambar">Gambar</label><span class="text-danger">*</span></label>
-                                                                <input type="text" class="form-control" name="gambar" value="<?= $penyakit['gambar']; ?>" required>
+                                                                <label for="gambar">Gambar</label>
+                                                                <input type="file" class="form-control" name="gambar"">
                                                             </div>
+
+                                                            <label for=" gambar">Gambar</label>
+                                                                <div class="form-group">
+                                                                    <img src="<?= base_url('/uploads/penyakit/' . $penyakit['gambar']); ?>" height="200px" width="200px" alt="Gambar Penyakit">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                    </form>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- /Edit Penyakit Modal -->
-                                    <?php endforeach; ?>
+                                            <!-- /Edit Penyakit Modal -->
+                                        <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -134,7 +138,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('penyakit/store'); ?>" method="post">
+                <form action="<?= base_url('penyakit/store'); ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="nama">Nama <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="nama" placeholder="Enter nama" required>
@@ -148,8 +152,8 @@
                         <textarea class="form-control" name="saran" placeholder="Enter saran" required rows="8"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="gambar">Gambar <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="gambar" placeholder="Enter nama gambar" required>
+                        <label for="gambar">Gambar</label>
+                        <input type="file" class="form-control" name="gambar" placeholder="Enter nama gambar">
                     </div>
 
                     <div class="modal-footer">
