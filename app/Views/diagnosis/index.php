@@ -27,17 +27,18 @@
                                                 <td>
                                                     <input type="hidden" name="kondisi[<?= $gejala['id']; ?>][gejala_id]" value="<?= $gejala['id']; ?>">
                                                     <select class="form-select keyakinan-dropdown" name="kondisi[<?= $gejala['id']; ?>][bobot]">
-                                                        <option value="0.0">Tidak Tahu</option>
-                                                        <option value="-1.0">Pasti Tidak</option>
-                                                        <option value="-0.8">Hampir Pasti Tidak</option>
-                                                        <option value="-0.6">Kemungkinan Besar Tidak</option>
+                                                        <option value="0.0">Tidak Diketahui</option>
+                                                        <option value="-1.0">Sangat Tidak Mungkin</option>
+                                                        <option value="-0.8">Sangat Kecil Kemungkinannya</option>
+                                                        <option value="-0.6">Kemungkinan Kecil Tidak</option>
                                                         <option value="-0.4">Mungkin Tidak</option>
-                                                        <option value="-0.2">Sedikit Tidak Mungkin</option>
-                                                        <option value="0.2">Sedikit Mungkin</option>
+                                                        <option value="-0.2">Cenderung Tidak</option>
+                                                        <option value="0.2">Cenderung Iya</option>
                                                         <option value="0.4">Mungkin Iya</option>
                                                         <option value="0.6">Kemungkinan Besar</option>
-                                                        <option value="0.8">Hampir Pasti</option>
-                                                        <option value="1.0">Pasti</option>
+                                                        <option value="0.8">Sangat Mungkin</option>
+                                                        <option value="1.0">Sangat Pasti</option>
+
                                                     </select>
                                                 </td>
                                             </tr>
