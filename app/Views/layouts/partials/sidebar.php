@@ -110,14 +110,6 @@
             </a>
         </li>
 
-        <li class="menu-item">
-            <a href="<?= base_url('/history') ?>" class="menu-link">
-                <i class="bx bx-history"></i>
-                <div data-i18n="History">History</div>
-            </a>
-        </li>
-
-
     </ul>
 </aside>
 <!-- / Menu -->
