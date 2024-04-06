@@ -19,6 +19,29 @@ class AuthController extends Controller
         ]);
     }
 
+    public function homepage()
+    {
+        $client = \Config\Services::curlrequest();
+
+        // Lakukan permintaan HTTP GET ke endpoint penyakit
+        $response = $client->request('GET', 'http://127.0.0.1:8000/homepage', [
+            'headers' => [
+                'Accept' => 'application/json'
+            ]
+        ]);
+
+        // Periksa apakah permintaan berhasil
+        if ($response->getStatusCode() === 200) {
+            // Ambil data penyakit dari respons JSON
+            $homepageData = json_decode($response->getBody(), true);
+
+            // Kirim data penyakit ke tampilan
+            return view('homepage', ['homepageData' => $homepageData]);
+        } else {
+            // Tanggapi jika permintaan tidak berhasil
+            return $this->failServerError('Failed to fetch penyakit data');
+        }
+    }
     public function index()
     {
         // Tampilkan halaman login
