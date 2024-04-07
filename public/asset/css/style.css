@@ -1656,6 +1656,7 @@ display: inline-block;
 float: right;
 }
 
+
 .buy:hover {
 	color: #fff;
 }
@@ -1714,7 +1715,7 @@ font-size: 18px;
 
 .banner-main .carousel-caption h1 {
 	color: #020000;
-	font-size: 85px;
+	font-size: 50px;
    line-height: 90px;
 	text-transform: uppercase;
 }
@@ -1726,7 +1727,7 @@ font-size: 18px;
 	 }
 .banner-main .carousel-caption a {
     width: 250px;
-background: #ffc221;
+background: #c89300;
 padding: 9px 0px;
 color: #fff;
 font-size: 17px;
@@ -2369,3 +2370,22 @@ text-align: center;
 	top: inherit;
 	bottom: 10px;
 }
+/* CSS untuk desktop */
+@media only screen and (min-width: 1256px) {
+	.carousel-caption img {
+		width: 300px; /* Tetapkan lebar gambar */
+		height: 180px; /* Tetapkan tinggi gambar */
+		object-fit: cover; /* Tetapkan objek fit ke cover untuk menjaga aspek rasio gambar */
+		border-radius: 15%; /* Menerapkan border radius */
+		border: 5px solid black; /* Menambahkan border hitam */
+	}
+}
+
+/* CSS untuk tablet dan mobile */
+@media only screen and (max-width: 1256px) {
+    .carousel-caption img {
+        display: none; /* Menyembunyikan gambar pada tampilan tablet dan mobile */
+    }
+}
+
+
