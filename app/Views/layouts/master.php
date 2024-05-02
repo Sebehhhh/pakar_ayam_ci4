@@ -42,6 +42,10 @@
   rel="stylesheet"
 />
 
+<!-- <link rel="stylesheet" href="<?= base_url('node_modules/sweetalert2/dist/sweetalert2.min.css') ?>"> -->
+
+<link rel="stylesheet" href="<?= base_url('dist/sweetalert2.min.css') ?>">
+
 <!-- Icons. Uncomment required icon fonts -->
 <link rel="stylesheet" href="<?= base_url('assets/vendor/fonts/boxicons.css') ?>" />
 
@@ -105,7 +109,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <!-- <script src="<?= base_url('node_modules/sweetalert2/dist/sweetalert2.min.js') ?>"></script> -->
+    <script src="<?= base_url('dist/sweetalert2.min.js') ?>"></script>
     <?php if (session()->has('alert')) : ?>
     <script>
         Swal.fire({
@@ -114,7 +120,7 @@
             text: '<?= session('alert.message') ?>',
         });
     </script>
-<?php endif; ?>
+    <?php endif; ?>
 
 <?= $this->include('layouts/partials/script') ?>   
 
