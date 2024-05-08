@@ -51,7 +51,7 @@ class DiagnosisController extends BaseController
 
             // Ambil data dari form
             $kondisi = $this->request->getPost('kondisi');
-
+            // dd($kondisi);
             // Filter kondisi yang memiliki bobot tidak sama dengan 0
             $kondisi = array_filter($kondisi, function ($item) {
                 return $item['bobot'] != 0.0;

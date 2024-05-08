@@ -116,7 +116,8 @@
                         <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" class="form-control" name="password" placeholder="Enter password" required>
                     </div>
-                    <div class="form-group">
+                    <input type="hidden" class="form-control" name="role_id" value="1">
+                    <!-- <div class="form-group">
                         <label for="role">Role <span class="text-danger">*</span></label>
                         <select class="form-select" name="role_id" required>
                             <option value="">Select Role</option>
@@ -124,7 +125,7 @@
                                 <option value="<?= $role['id']; ?>"><?= $role['role']; ?></option>
                             <?php endforeach; ?>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

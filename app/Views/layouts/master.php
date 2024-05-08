@@ -42,8 +42,6 @@
   rel="stylesheet"
 />
 
-<!-- <link rel="stylesheet" href="<?= base_url('node_modules/sweetalert2/dist/sweetalert2.min.css') ?>"> -->
-
 <link rel="stylesheet" href="<?= base_url('dist/sweetalert2.min.css') ?>">
 
 <!-- Icons. Uncomment required icon fonts -->

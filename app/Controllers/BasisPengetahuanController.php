@@ -130,7 +130,7 @@ class BasisPengetahuanController extends BaseController
             }
         } catch (\Exception $e) {
             // Tangani kesalahan yang terjadi
-            $this->setFlashAlert('error', 'Error', 'Data Basis Pengetahuan Sudah Tersedia!');
+            $this->setFlashAlert('error', 'Error', 'Anda Memasukkan Data yang Tidak Sah!');
             return redirect()->to('/basisPengetahuan');
         }
     }
@@ -181,7 +181,7 @@ class BasisPengetahuanController extends BaseController
             }
         } catch (\Exception $e) {
             // Tangani kesalahan yang terjadi
-            $this->setFlashAlert('error', 'Error', 'Data Basis Pengetahuan Sudah Tersedia!!');
+            $this->setFlashAlert('error', 'Error', 'Anda Memasukkan Data yang Tidak Sah!');
             return redirect()->to('/basisPengetahuan');
         }
     }

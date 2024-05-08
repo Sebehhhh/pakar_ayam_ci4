@@ -235,3 +235,34 @@
         });
     });
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const questions = document.querySelectorAll(".question");
+        let currentQuestionIndex = 0;
+
+        function showQuestion(index) {
+            questions.forEach((question, i) => {
+                if (i === index) {
+                    question.style.display = "block";
+                } else {
+                    question.style.display = "none";
+                }
+            });
+        }
+
+        document.querySelectorAll(".next-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                currentQuestionIndex = parseInt(this.getAttribute("data-question")) + 1;
+                showQuestion(currentQuestionIndex);
+            });
+        });
+
+        document.querySelectorAll(".prev-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                currentQuestionIndex = parseInt(this.getAttribute("data-question")) - 1;
+                showQuestion(currentQuestionIndex);
+            });
+        });
+    });
+</script>
