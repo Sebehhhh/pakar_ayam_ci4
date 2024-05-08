@@ -34,7 +34,6 @@ class GejalaController extends BaseController
                 ]
             ]);
 
-            // Periksa apakah permintaan berhasil
             if ($response->getStatusCode() === 200) {
                 // Ambil data gejala dari respons JSON
                 $gejalaData = json_decode($response->getBody(), true);
@@ -53,85 +52,93 @@ class GejalaController extends BaseController
 
     public function store()
     {
-        // Periksa apakah sesi memiliki token akses
-        if (session()->has('access_token')) {
-            // Ambil token akses dari sesi
-            $accessToken = session('access_token');
+        try {
+            // Periksa apakah sesi memiliki token akses
+            if (session()->has('access_token')) {
+                // Ambil token akses dari sesi
+                $accessToken = session('access_token');
 
-            // Ambil data yang dikirimkan dari form
-            $gejalaData = [
-                'id' => $this->request->getPost('id'),
-                'nama' => $this->request->getPost('nama'),
-            ];
+                // Ambil data yang dikirimkan dari form
+                $gejalaData = [
+                    'id' => $this->request->getPost('id'),
+                    'nama' => $this->request->getPost('nama'),
+                ];
 
-            // Buat HTTP client
-            $client = \Config\Services::curlrequest();
+                // Buat HTTP client
+                $client = \Config\Services::curlrequest();
 
-            // Lakukan permintaan HTTP POST ke endpoint gejala/store
-            $response = $client->request('POST', 'http://127.0.0.1:8000/gejala/store', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
-                'json' => $gejalaData, // Mengirim data dalam format JSON
-            ]);
+                // Lakukan permintaan HTTP POST ke endpoint gejala/store
+                $response = $client->request('POST', 'http://127.0.0.1:8000/gejala/store', [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $accessToken,
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                    ],
+                    'json' => $gejalaData, // Mengirim data dalam format JSON
+                ]);
 
-            // Periksa apakah permintaan berhasil
-            if ($response->getStatusCode() === 200) {
-                // Set pesan sukses
-                $this->setFlashAlert('success', 'Success', 'Gejala created successfully');
-                return redirect()->to('/gejala');
+                // Periksa apakah permintaan berhasil
+                if ($response->getStatusCode() === 200) {
+                    // Set pesan sukses
+                    $this->setFlashAlert('success', 'Success', 'Gejala created successfully');
+                    return redirect()->to('/gejala');
+                } else {
+                    // Tanggapi jika permintaan tidak berhasil
+                    $this->setFlashAlert('error', 'Error', 'Failed to create gejala');
+                    return redirect()->to('/gejala');
+                }
             } else {
-                // Tanggapi jika permintaan tidak berhasil
-                $this->setFlashAlert('error', 'Error', 'Failed to create gejala');
-                return redirect()->to('/gejala');
+                // Tanggapi jika tidak ada token akses dalam sesi
+                return view('errors/html/error_401');
             }
-        } else {
-            // Tanggapi jika tidak ada token akses dalam sesi
-            return view('errors/html/error_401');
+        } catch (\Exception $e) {
+            // Tanggapi jika terjadi kesalahan
+            $this->setFlashAlert('error', 'Error', 'Data yang anda kirimkan tidak sah!!');
+            return redirect()->to('/gejala');
         }
     }
 
     public function update($id)
     {
-        // Periksa apakah sesi memiliki token akses
-        if (session()->has('access_token')) {
-            // Ambil token akses dari sesi
-            $accessToken = session('access_token');
+        try {
+            if (session()->has('access_token')) {
+                // Ambil token akses dari sesi
+                $accessToken = session('access_token');
 
-            // Ambil data yang dikirimkan dari form
-            $gejalaData = [
-                'id' => $id,
-                'nama' => $this->request->getPost('nama'),
-            ];
+                // Ambil data yang dikirimkan dari form
+                $gejalaData = [
+                    'id' => $id,
+                    'nama' => $this->request->getPost('nama'),
+                ];
 
-            // Buat HTTP client
-            $client = \Config\Services::curlrequest();
+                // Buat HTTP client
+                $client = \Config\Services::curlrequest();
 
-            // Lakukan permintaan HTTP PUT ke endpoint gejala/update/(id)
-            $response = $client->request('PUT', 'http://127.0.0.1:8000/gejala/update/' . $id, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
-                'json' => $gejalaData, // Mengirim data dalam format JSON
-            ]);
+                $response = $client->request('PUT', 'http://127.0.0.1:8000/gejala/update/' . $id, [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $accessToken,
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                    ],
+                    'json' => $gejalaData,
+                ]);
 
-            // Periksa apakah permintaan berhasil
-            if ($response->getStatusCode() === 200) {
-                // Set pesan sukses
-                $this->setFlashAlert('success', 'Success', 'Gejala updated successfully');
-                return redirect()->to('/gejala');
+                if ($response->getStatusCode() === 200) {
+                    // Set pesan sukses
+                    $this->setFlashAlert('success', 'Success', 'Gejala updated successfully');
+                    return redirect()->to('/gejala');
+                } else {
+                    // Tanggapi jika permintaan tidak berhasil
+                    $this->setFlashAlert('error', 'Error', 'Failed to update gejala');
+                    return redirect()->to('/gejala');
+                }
             } else {
-                // Tanggapi jika permintaan tidak berhasil
-                $this->setFlashAlert('error', 'Error', 'Failed to update gejala');
-                return redirect()->to('/gejala');
+                return view('errors/html/error_401');
             }
-        } else {
-            // Tanggapi jika tidak ada token akses dalam sesi
-            return view('errors/html/error_401');
+        } catch (\Exception $e) {
+            // Tanggapi jika terjadi kesalahan
+            $this->setFlashAlert('error', 'Error', 'Data yang anda masukkan tidak sah!');
+            return redirect()->to('/gejala');
         }
     }
 
