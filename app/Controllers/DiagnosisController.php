@@ -81,7 +81,7 @@ class DiagnosisController extends BaseController
             if ($response->getStatusCode() === 200) {
                 // Ambil hasil diagnosis dari respons JSON
                 $result = json_decode($response->getBody(), true);
-
+                // dd($result);
                 // Redirect ke view hasil/index dengan membawa data hasil diagnosis
                 return view('diagnosis/hasil', ['result' => $result]);
             } else {

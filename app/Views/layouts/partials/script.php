@@ -236,7 +236,7 @@
     });
 </script>
 
-<script>
+<!-- <script>
     document.addEventListener("DOMContentLoaded", function() {
         const questions = document.querySelectorAll(".question");
         let currentQuestionIndex = 0;
@@ -264,5 +264,114 @@
                 showQuestion(currentQuestionIndex);
             });
         });
+    });
+</script> -->
+
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const questions = document.querySelectorAll(".question");
+        let currentQuestionIndex = 0;
+
+        function showQuestion(index) {
+            questions.forEach((question, i) => {
+                question.style.display = i === index ? "block" : "none";
+            });
+            updatePaginationButtons(index);
+        }
+
+        function updatePaginationButtons(index) {
+            document.querySelectorAll('.pagination-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+        }
+
+        document.querySelectorAll(".next-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                currentQuestionIndex = parseInt(this.getAttribute("data-question")) + 1;
+                showQuestion(currentQuestionIndex);
+            });
+        });
+
+        document.querySelectorAll(".prev-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                currentQuestionIndex = parseInt(this.getAttribute("data-question")) - 1;
+                showQuestion(currentQuestionIndex);
+            });
+        });
+
+        document.querySelectorAll(".pagination-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                currentQuestionIndex = parseInt(this.getAttribute("data-question"));
+                showQuestion(currentQuestionIndex);
+            });
+        });
+
+        // Initially show the first question
+        showQuestion(currentQuestionIndex);
+    });
+</script> -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const questions = document.querySelectorAll(".question");
+        const paginationButtons = document.querySelectorAll(".pagination-btn");
+        let currentQuestionIndex = 0;
+
+        function showQuestion(index) {
+            questions.forEach((question, i) => {
+                question.style.display = i === index ? "block" : "none";
+            });
+            updatePaginationButtons(index);
+        }
+
+        function updatePaginationButtons(index) {
+            paginationButtons.forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+        }
+
+        function updateButtonColor() {
+            questions.forEach((question, index) => {
+                const select = question.querySelector('.keyakinan-dropdown');
+                if (select.value !== "0.0") {
+                    paginationButtons[index].classList.remove('btn-outline-primary');
+                    paginationButtons[index].classList.add('btn-success');
+                } else {
+                    paginationButtons[index].classList.remove('btn-success');
+                    paginationButtons[index].classList.add('btn-outline-primary');
+                }
+            });
+        }
+
+        document.querySelectorAll(".next-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                currentQuestionIndex = parseInt(this.getAttribute("data-question")) + 1;
+                showQuestion(currentQuestionIndex);
+            });
+        });
+
+        document.querySelectorAll(".prev-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                currentQuestionIndex = parseInt(this.getAttribute("data-question")) - 1;
+                showQuestion(currentQuestionIndex);
+            });
+        });
+
+        document.querySelectorAll(".pagination-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                currentQuestionIndex = parseInt(this.getAttribute("data-question"));
+                showQuestion(currentQuestionIndex);
+            });
+        });
+
+        document.querySelectorAll('.keyakinan-dropdown').forEach(select => {
+            select.addEventListener('change', function() {
+                updateButtonColor();
+            });
+        });
+
+        // Initially show the first question and update button colors
+        showQuestion(currentQuestionIndex);
+        updateButtonColor();
     });
 </script>

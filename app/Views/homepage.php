@@ -46,7 +46,7 @@
         <div class="header">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                    <div class="col-xl-3 col-lg-6 col-md-3 col-sm-3 col logo_section">
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo mt-3"> <a href="#"><img src="<?= base_url('asset/images/logo.png'); ?>" alt="logo" /></a> </div>
