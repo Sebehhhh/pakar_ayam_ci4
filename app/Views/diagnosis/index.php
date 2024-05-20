@@ -1,5 +1,50 @@
 <?= $this->extend('layouts/master') ?>
 <?= $this->section('content') ?>
+
+<style>
+    /* Position the tooltip container */
+    .position-relative {
+        position: relative;
+    }
+
+    .custom-tooltip {
+        visibility: hidden;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px 10px;
+        position: absolute;
+        z-index: 1;
+        bottom: 120%;
+        /* Position above the button */
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+        /* Prevent tooltip from capturing mouse events */
+    }
+
+    .custom-tooltip::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        /* Arrow at the bottom of the tooltip */
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 5px;
+        border-style: solid;
+        border-color: #333 transparent transparent transparent;
+    }
+
+    .position-relative:hover .custom-tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+
 <!-- Content -->
 <!-- <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
@@ -122,14 +167,19 @@
                         <div class="pagination-buttons mx-4 my-3">
                             <div class="row gx-3">
                                 <?php foreach ($gejalaData as $index => $gejala) : ?>
-                                    <div class="col-1 mb-2">
+                                    <div class="col-1 mb-2 position-relative">
                                         <button type="button" class="btn btn-outline-primary pagination-btn w-100" data-question="<?= $index; ?>">
                                             <?= $index + 1; ?>
                                         </button>
+                                        <div class="custom-tooltip">
+                                            <?= htmlspecialchars($gejala['nama']); ?>
+                                        </div>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
                         </div>
+
+
 
                         <form action="<?= base_url('/diagnosis/proses'); ?>" method="post" id="diagnosisForm">
                             <div class="questions-container mx-4 my-3">
